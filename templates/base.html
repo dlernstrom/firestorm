@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <html>
 <head>
     <title>UPN Topic</title>
@@ -9,11 +10,11 @@
 <body class="body">
 
     <header class="mainHead">
-        <img src="/static/img/python_north.png" width="700" height="144">
+        <img src="{% static 'img/python_north.png' %}" width="700" height="144">
         <p>&nbsp;</p>
         <nav><ul>
             <li><a href='/'>Home</a></li>
-            <li><a href='/view/'>View Add Edit Topic</a></li>
+            <li><a href='{% url "view_topics" %}'>View Add Edit Topic</a></li>
             <li><a href='/schedule/'>Schedule</a></li>
             <li><a href='/reports/'>Reports</a></li>
         </ul></nav>

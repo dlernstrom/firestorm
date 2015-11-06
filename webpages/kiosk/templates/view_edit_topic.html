@@ -15,7 +15,7 @@
         {% for vest in vestiments %}
         <tr style="border-bottome:1px;">
             <td ><a href='edit{{ vest.id }}'>Edit</a></td>
-            <td ><a href='delete{{ vest.id }}'>Delete</a></td>
+            <td ><a href='{% url "remove_topic" vest.id  %}'>Delete</a></td>
             <td style="padding:6px;">{{ vest.name }}</td>
             <td style="padding:6px;">{{ vest.material }}</td>
             <td style="padding:6px;">{{ vest.color }}</td>
@@ -23,8 +23,8 @@
         </tr>
 
         {% endfor %}
-        <tr style="border-bottome:1px;">
-            <td ><a href='add'>Add New</a></td>
+        <tr style="border-bottom:1px;">
+            <td ><a href='{% url "create_topic" %}'>Add New</a></td>
             <td ></td>
             <td></td>
             <td></td>

@@ -7,3 +7,4 @@ Thumbs.db
 /static/user
 base_local.py
 *.db
+.idea/
