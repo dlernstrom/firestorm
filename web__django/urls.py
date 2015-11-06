@@ -8,7 +8,7 @@ from django.contrib.staticfiles.views import serve
 #admin.autodiscover()
 
 from webpages._SiteWide.views import load_dutils_js
-from webpages.kiosk.views import home
+from webpages.kiosk.views import *
 
 
 urlpatterns = [
@@ -27,6 +27,22 @@ urlpatterns = [
         name='dutils_conf'),
 
     # These are custom to the Firestorm project
-    url(r'^$', home,
-        name='home'),
+    url(r'^$', home, name='home'),
+
+    url(r'^view/$', view_topics, name='view_topics'),
+
+    url(r'^view/add$', create_topic, name='create_topic'),
+
+    url(r'^view/edit(?P<topic_key>.*)/', update_topic,
+        name='update_topic'),
+
+    url(r'^view/delete(?P<topic_key>.*)/', remove_topic,
+        name='remove_topic'),
+
+
+    url(r'^schedule/$', schedule,
+        name='schedule'),
+
+    url(r'^reports/$', reports,
+        name='reports'),
 ]
