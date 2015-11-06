@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
+
 from webpages.kiosk.models import *
+
 
 def get_remarks():
     remarks_list = [
@@ -43,33 +45,31 @@ def update_topic(request, topic_key):
     if request.method == "GET":
         form = VestimentsForm(instance=topic)
         return render(
-            request, 'form_edit_topic.html', { 'form' :form,
+            request, 'form_edit_topic.html', {'form' :form,
                                               'remarks':get_remarks()})
     elif request.method == "POST":
         form = VestimentsForm(request.POST or None, instance=topic)
         form.save()
         return HttpResponseRedirect('/view/')
 
+
 def create_topic(request):
     if request.method == "GET":
         form = VestimentsForm
         return render(
-            request, 'form_edit_topic.html', { 'form' :form,
+            request, 'form_edit_topic.html', {'form' :form,
                                               'remarks':get_remarks()})
     elif request.method == "POST":
         form = VestimentsForm(request.POST)
         form.save()
         return HttpResponseRedirect('/view/')
 
+
 def schedule(request):
     return render_to_response(
         'view_schedule.html', {'remarks':get_remarks()})
-   # return HttpResponse('some scheduli ng stuff goes here')
 
 
 def reports(request):
     return render_to_response(
         'view_reports.html', {'remarks':get_remarks()})
-    # return HttpResponse('some Reporting stuff goes here')
-
-
