@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <table border='0'; style="padding-left:32px;">
+        <tr class="tableHeader" style="font-weight:bold;">
+            <td> &nbsp; </td>
+            <td> &nbsp; </td>
+            <td style="padding:6px;"> Vestiment </td>
+            <td style="padding:6px;"> Material </td>
+            <td style="padding:6px;"> Color </td>
+            <td style="padding:6px;"> Use </td>
+        </tr>
+
+        {% for vest in object_list %}
+        <tr style="border-bottome:1px;">
+            <td ><a href='{% url "update_topic" vest.id  %}'>Edit</a></td>
+            <td ><a href='{% url "remove_topic" vest.id  %}'>Delete</a></td>
+            <td style="padding:6px;">{{ vest.name }}</td>
+            <td style="padding:6px;">{{ vest.material }}</td>
+            <td style="padding:6px;">{{ vest.color }}</td>
+            <td style="padding:6px;">{{ vest.use }}</td>
+        </tr>
+
+        {% endfor %}
+        <tr style="border-bottom:1px;">
+            <td ><a href='{% url "create_topic" %}'>Add New</a></td>
+            <td ></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+{% endblock %}
