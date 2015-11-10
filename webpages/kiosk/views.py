@@ -4,25 +4,25 @@ from __future__ import unicode_literals
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
-from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
+from django.views.generic.list import ListView
 
-from webpages.kiosk.models import Vestiments, Topic
+from webpages.kiosk.models import Topic
 
 
 def get_remarks():
     remarks_list = [
-    "Whow, I loved Hack night.  It changed my life. --McKay",
-    "Blue cheese?  who brings blue cheese to a GUN FIGHT? --Dirkus",
-    "....um.... who's playing footsie with me under the table...Colby!, Im looking at you perv? :( --name withheld",
-    "Does this moutain dew come in an Extra Large....  and cherry?  --Gavin"
+        "Whow, I loved Hack night.  It changed my life. --McKay",
+        "Blue cheese?  who brings blue cheese to a GUN FIGHT? --Dirkus",
+        "....um.... who's playing footsie with me under the table...Colby!, Im looking at you perv? :( --name withheld",
+        "Does this moutain dew come in an Extra Large....  and cherry?  --Gavin"
     ]
     return remarks_list
 
 
 def home(request):
     return render_to_response(
-        'base.html', {'remarks':get_remarks()})
+        'base.html', {'remarks': get_remarks()})
 
 
 class TopicListView(ListView):
@@ -62,16 +62,6 @@ class TopicUpdateView(UpdateView):
     model = Topic
     template_name = 'form_edit_topic.html'
     fields = ['subject', 'description']
-# class TopicUpdateView(UpdateView):
-#     model = Vestiments
-#     template_name = 'form_edit_topic.html'
-#     fields = ['name', 'material', 'use', 'color']
-#     success_url = reverse_lazy('view_topics')
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(TopicUpdateView, self).get_context_data(**kwargs)
-#         context.update({'remarks': get_remarks()})
-#         return context
 
 
 class TopicCreateView(CreateView):
@@ -88,10 +78,9 @@ class TopicCreateView(CreateView):
 
 def schedule(request):
     return render_to_response(
-        'view_schedule.html', {'remarks':get_remarks()})
+        'view_schedule.html', {'remarks': get_remarks()})
 
 
 def reports(request):
     return render_to_response(
-        'view_reports.html', {'remarks':get_remarks()})
-
+        'view_reports.html', {'remarks': get_remarks()})
