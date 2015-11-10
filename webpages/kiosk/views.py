@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
-from webpages.kiosk.models import *
+from django.views.generic.list import ListView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
+
+from webpages.kiosk.models import Vestiments, Topic
+
 
 def get_remarks():
     remarks_list = [
@@ -15,61 +20,78 @@ def get_remarks():
     return remarks_list
 
 
-def get_vestiments():
-    return Vestiments.objects.all()
-
-
-def get_vestiment(pk):
-    return Vestiments.get(pk)
-
-
 def home(request):
     return render_to_response(
         'base.html', {'remarks':get_remarks()})
 
 
-def view_topics(request):
-    return render_to_response(
-        'view_edit_topic.html', {'remarks':get_remarks(),
-                                 'vestiments':get_vestiments()})
-
-def remove_topic(request, topic_key):
-    topic = Vestiments.objects.filter(pk=topic_key).delete()
-    return HttpResponseRedirect('/view/')
+class TopicListView(ListView):
+    model = Topic
+    template_name = "topic_list.html"
 
 
-def update_topic(request, topic_key):
-    topic = Vestiments.objects.get(pk=topic_key)
-    if request.method == "GET":
-        form = VestimentsForm(instance=topic)
-        return render(
-            request, 'form_edit_topic.html', { 'form' :form,
-                                              'remarks':get_remarks()})
-    elif request.method == "POST":
-        form = VestimentsForm(request.POST or None, instance=topic)
-        form.save()
-        return HttpResponseRedirect('/view/')
+# class TopicListView(ListView):
+#     model = Vestiments
+#     template_name = "vestiments_list.html"
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(TopicListView, self).get_context_data(**kwargs)
+#         context.update({'remarks': get_remarks()})
+#         return context
 
-def create_topic(request):
-    if request.method == "GET":
-        form = VestimentsForm
-        return render(
-            request, 'form_edit_topic.html', { 'form' :form,
-                                              'remarks':get_remarks()})
-    elif request.method == "POST":
-        form = VestimentsForm(request.POST)
-        form.save()
-        return HttpResponseRedirect('/view/')
+
+class TopicDeleteView(DeleteView):
+    model = Topic
+    template_name = "topic_confirm_delete.html"
+    success_url = reverse_lazy('view_topics')
+
+    def get_context_data(self, **kwargs):
+        context = super(TopicDeleteView, self).get_context_data(**kwargs)
+        context.update({'remarks': get_remarks()})
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            url = self.get_success_url()
+            return HttpResponseRedirect(url)
+        else:
+            return super(TopicDeleteView, self).post(request, *args, **kwargs)
+
+
+class TopicUpdateView(UpdateView):
+    model = Topic
+    template_name = 'form_edit_topic.html'
+    fields = ['subject', 'description']
+# class TopicUpdateView(UpdateView):
+#     model = Vestiments
+#     template_name = 'form_edit_topic.html'
+#     fields = ['name', 'material', 'use', 'color']
+#     success_url = reverse_lazy('view_topics')
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(TopicUpdateView, self).get_context_data(**kwargs)
+#         context.update({'remarks': get_remarks()})
+#         return context
+
+
+class TopicCreateView(CreateView):
+    model = Topic
+    template_name = 'form_add_topic.html'
+    fields = ['subject', 'description', 'depth', 'suggested_by', 'suggested_date', 'user_interest', 'user_skill_level']
+    success_url = reverse_lazy('view_topics')
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(TopicCreateView, self).get_context_data(**kwargs)
+    #     context.update({'remarks': get_remarks()})
+    #     return context
+
 
 def schedule(request):
     return render_to_response(
         'view_schedule.html', {'remarks':get_remarks()})
-   # return HttpResponse('some scheduli ng stuff goes here')
 
 
 def reports(request):
     return render_to_response(
         'view_reports.html', {'remarks':get_remarks()})
-    # return HttpResponse('some Reporting stuff goes here')
-
 

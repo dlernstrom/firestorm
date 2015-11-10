@@ -16,10 +16,10 @@ class Vestiments(models.Model):
     use = models.CharField(max_length=20)
     color = models.CharField(max_length=20)
 
-class VestimentsForm(forms.ModelForm):
-    class Meta:
-        model = Vestiments
-        fields = ['name', 'material', 'use', 'color']
+# class VestimentsForm(forms.ModelForm):
+#     class Meta:
+#         model = Vestiments
+#         fields = ['name', 'material', 'use', 'color']
 
 
 class UserManager(BaseUserManager):

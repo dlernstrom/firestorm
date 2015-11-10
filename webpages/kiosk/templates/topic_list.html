@@ -2,34 +2,51 @@
 
 
 {% block content %}
-    <table border='0'; style="padding-left:32px;">
-        <tr class="tableHeader" style="font-weight:bold;">
-            <td> &nbsp; </td>
-            <td> &nbsp; </td>
-            <td style="padding:6px;"> Vestiment </td>
-            <td style="padding:6px;"> Material </td>
-            <td style="padding:6px;"> Color </td>
-            <td style="padding:6px;"> Use </td>
-        </tr>
 
-        {% for vest in object_list %}
-        <tr style="border-bottome:1px;">
-            <td ><a href='{% url "update_topic" vest.id  %}'>Edit</a></td>
-            <td ><a href='{% url "remove_topic" vest.id  %}'>Delete</a></td>
-            <td style="padding:6px;">{{ vest.name }}</td>
-            <td style="padding:6px;">{{ vest.material }}</td>
-            <td style="padding:6px;">{{ vest.color }}</td>
-            <td style="padding:6px;">{{ vest.use }}</td>
-        </tr>
+    <div class="Table">
+        <div class="Title">
+            <p>Trending Python Topics</p>
+        </div>
+        <div class="Title">
+            <p> </p>
+        </div>
+        <div class="Heading">
+            <div class="Cell_no_border">
+                <p> </p>
+            </div>
+            <div class="Cell_no_border">
+                <p>SUBJECT <br> Added</p>
+            </div>
+            <div class="Cell_no_border">
+                <p>DESCRIPTION <br> <span class="color1"> Suggested by </span> / <span class="color2">Interest</span> / <span class="color3">Skill Level</span></p>
+            </div>
+        </div>
 
-        {% endfor %}
-        <tr style="border-bottom:1px;">
-            <td ><a href='{% url "create_topic" %}'>Add New</a></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+    {% for topic in object_list %}
+        <div class="Row">
+            <div class="Cell First">
+                <p><a href='{% url "update_topic" topic.id  %}'>Edit</a></p>
+                <p><a href='{% url "remove_topic" topic.id  %}'>Delete</a></p>
+            </div>
+            <div class="Cell Second">
+                <p class="Subject">{{ topic.subject }}</p>
+                <p>{{ topic.suggested_date|date:"m/d/y" }}</p>
+            </div>
+            <div class="Cell Last">
+                <p>{{ topic.description }}</p>
+                <p><span class="color1">{{ topic.suggested_by }}</span> / <span class="color2">{{ topic.user_interest }}</span> / <span class="color3">{{ topic.user_skill_level }}</span></p>
+            </div>
+        </div>
+    {% endfor %}
+        <div class="Heading">
+            <div class="Cell_no_border">
+                <p></p>
+            </div>
+            <div class="Cell_no_border">
+                <p><a href='{% url "create_topic" %}'>Add New</a></p>
+            </div>
+        </div>
+
+    </div>
 
 {% endblock %}

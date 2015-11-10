@@ -4,6 +4,6 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button action="/view/add" type="submit">Save New</button>
+        <button action="{% url "view_topics" %}" type="submit">Save New</button>
     </form>
 {% endblock %}

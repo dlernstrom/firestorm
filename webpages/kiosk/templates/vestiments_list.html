@@ -12,9 +12,9 @@
             <td style="padding:6px;"> Use </td>
         </tr>
 
-        {% for vest in vestiments %}
+        {% for vest in object_list %}
         <tr style="border-bottome:1px;">
-            <td ><a href='edit{{ vest.id }}'>Edit</a></td>
+            <td ><a href='{% url "update_topic" vest.id  %}'>Edit</a></td>
             <td ><a href='{% url "remove_topic" vest.id  %}'>Delete</a></td>
             <td style="padding:6px;">{{ vest.name }}</td>
             <td style="padding:6px;">{{ vest.material }}</td>

@@ -20,17 +20,19 @@
         </ul></nav>
     </header>
 
+
+{% block content %}
+
     <aside class="sideInfo">
         <article>
             <h3>Member Remarks</h3>
             {% for remark in remarks %}
-            <p> {{ remark }}</p>
+                <p> {{ remark }}</p>
 
             {% endfor %}
         </article>
     </aside>
 
-{% block content %}
 <div class="content">
 <p>
 The standard Lorem Ipsum passage, used since the 1500s
