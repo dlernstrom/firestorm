@@ -11,6 +11,7 @@
         {% addtoblock "css" %}<link rel="icon" type="image/png" href="{{ STATIC_URL }}images/utah_python_north_logo.jpeg"/>{% endaddtoblock %}
     {% endif %}
     {% render_block "css" %}
+    {% addtoblock "js" %}<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-2.1.4.min.js" ></script>{% endaddtoblock %}
 </head>
 <body>
     <div id="header" class="header">
